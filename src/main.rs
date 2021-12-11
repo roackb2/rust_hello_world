@@ -3,7 +3,7 @@ use std::cmp::Ordering;
 use rand::Rng;
 
 fn main() {
-    some_random_code();
+    play_around_numbers();
 
     let mut input = String::new();
 
@@ -56,9 +56,21 @@ fn guessing_game() {
     }
 }
 
-fn some_random_code() {
+fn play_around_numbers() {
     let mut some_num = 5;
     println!("Some number: {}", some_num);
     some_num = 6;
     println!("Some number is changed to {}", some_num);
+    let some_num: u32 = 32;
+    println!("Shadowing some number to {}", some_num);
+    // unsigned numbers could not be negative
+    // let some_num = -64;
+    let some_num = 23_987;
+    println!("Decimal representation of 23_98: {}", some_num);
+    let some_num = 0xab;
+    println!("Hex representation of 0xab: {}", some_num);
+    let some_num = 0o32;
+    println!("Octal representation of 0o32: {}", some_num);
+    let some_num = 0b1001_0100;
+    println!("Binary representation of 0b1001_0100: {}", some_num);
 }
