@@ -125,22 +125,23 @@ fn control_flow() {
     println!("Assignment of single line if-else expression: {}", res);
 
     let mut x = 0;
-    'outer_loop: loop {
+    // NOTE: Rust support loop labeling
+    let (x, y) = 'outer_loop: loop {
         x = x + 1;
         println!("value of x: {}", x);
         let mut y = 0;
-        // NOTE: Rust support loop labeling
-        'inner_loop: loop {
+        loop {
             y = y + 1;
             println!("value of y: {}", y);
             if x > 30 {
                 println!("break outer loop if x > 30");
-                break 'outer_loop;
+                break 'outer_loop (x, y);
             }
             if y > 30 {
                 println!("break inner loop if y > 30");
-                break 'inner_loop;
+                break;
             }
         }
-    }
+    };
+    println!("Value of x y after loop: {}, {}", x, y);
 }
