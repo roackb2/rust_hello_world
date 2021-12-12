@@ -5,6 +5,9 @@ use rand::Rng;
 fn main() {
     play_around_primitives();
     play_around_compound_types();
+    test_statement();
+    let c = simple_add(5, 8);
+    println!("The result is {}.", c);
 
     let mut input = String::new();
 
@@ -82,7 +85,7 @@ fn play_around_primitives() {
     println!("Chinese is also fine: {}", txt);
 }
 
-fn play_around_compound_types () {
+fn play_around_compound_types() {
     let tup: (u32, i64, bool) = (28, -12, false);
     println!("A tuple with type (u32, char, bool): {}, {}, {}", tup.0, tup.1, tup.2);
     let (a, b, c) = tup;
@@ -91,4 +94,17 @@ fn play_around_compound_types () {
     println!("Array is of fixed length: [{}, {}, {}]", arr[0], arr[1], arr[2]);
     let arr = [5; 3];
     println!("Array initialization: [{}, {}, {}]", arr[0], arr[1], arr[2]);
+}
+
+fn test_statement() {
+    let x = {
+        let y = 5;
+        y + 1 // note that no semicolon after an expression
+    };
+    println!("Value of x: {}", x);
+}
+
+fn simple_add(a: i32, b: i32) -> i32 {
+    println!("We're adding {} and {} with our simple_add function.", a, b);
+    a + b
 }
