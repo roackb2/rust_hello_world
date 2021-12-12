@@ -144,4 +144,21 @@ fn control_flow() {
         }
     };
     println!("Value of x y after loop: {}, {}", x, y);
+
+    let mut i = 0;
+    while i < 30 {
+        i = i + 1;
+    }
+    println!("result of i after while loop: {}", i);
+
+    let arr = [3, 5, 8, 13, 21];
+    println!("Iterate through array elements.");
+    for e in arr {
+        println!("element: {}", e);
+    }
+
+    for count in (1..10).rev() {
+        println!("{}", count);
+    }
+    println!("Liftoff!!");
 }
