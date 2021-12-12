@@ -1,19 +1,30 @@
 mod modules;
-
 use std::io;
 use std::cmp::Ordering;
 use rand::Rng;
+use crate::modules::primitives::{
+    play_around_primitives,
+    play_around_compound_types
+};
+use crate::modules::flow::{
+    test_statement,
+    simple_add,
+    control_flow
+};
+use crate::modules::ownership::ownership;
+use crate::modules::reference::reference;
+use crate::modules::slices::slice_type;
 
 fn main() {
-    modules::primitives::play_around_primitives();
-    modules::primitives::play_around_compound_types();
-    modules::flow::test_statement();
-    let c = modules::flow::simple_add(5, 8);
+    play_around_primitives();
+    play_around_compound_types();
+    test_statement();
+    let c = simple_add(5, 8);
     println!("The result is {}.", c);
-    modules::flow::control_flow();
-    modules::ownership::ownership();
-    modules::reference::reference();
-    modules::slices::slice_type();
+    control_flow();
+    ownership();
+    reference();
+    slice_type();
 
     let mut input = String::new();
 
