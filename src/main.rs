@@ -8,6 +8,7 @@ fn main() {
     test_statement();
     let c = simple_add(5, 8);
     println!("The result is {}.", c);
+    control_flow();
 
     let mut input = String::new();
 
@@ -107,4 +108,39 @@ fn test_statement() {
 fn simple_add(a: i32, b: i32) -> i32 {
     println!("We're adding {} and {} with our simple_add function.", a, b);
     a + b
+}
+
+fn control_flow() {
+    let cond = 5;
+    // NOTE: No parenthesis needed for conditions
+    let res = if cond < 8 {
+        println!("Number is less than 8");
+        true
+    } else {
+        println!("Number is greater than 8");
+        false
+    };
+    println!("Assignment of the result for if-else expression: {}", res);
+    let res = if cond < 8 { "Number is less than 8" } else { "Number is greater than 8" };
+    println!("Assignment of single line if-else expression: {}", res);
+
+    let mut x = 0;
+    'outer_loop: loop {
+        x = x + 1;
+        println!("value of x: {}", x);
+        let mut y = 0;
+        // NOTE: Rust support loop labeling
+        'inner_loop: loop {
+            y = y + 1;
+            println!("value of y: {}", y);
+            if x > 30 {
+                println!("break outer loop if x > 30");
+                break 'outer_loop;
+            }
+            if y > 30 {
+                println!("break inner loop if y > 30");
+                break 'inner_loop;
+            }
+        }
+    }
 }
