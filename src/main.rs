@@ -15,6 +15,7 @@ use crate::modules::ownership::ownership;
 use crate::modules::reference::reference;
 use crate::modules::slices::slice_type;
 use crate::modules::structs::test_structs;
+use crate::modules::enums::test_enums;
 
 fn main() {
     play_around_primitives();
@@ -27,6 +28,7 @@ fn main() {
     reference();
     slice_type();
     test_structs();
+    test_enums();
 
     let mut input = String::new();
 

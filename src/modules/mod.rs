@@ -4,3 +4,4 @@ pub mod ownership;
 pub mod reference;
 pub mod slices;
 pub mod structs;
+pub mod enums;
