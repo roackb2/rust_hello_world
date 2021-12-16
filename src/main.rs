@@ -14,6 +14,7 @@ use crate::modules::flow::{
 use crate::modules::ownership::ownership;
 use crate::modules::reference::reference;
 use crate::modules::slices::slice_type;
+use crate::modules::structs::test_structs;
 
 fn main() {
     play_around_primitives();
@@ -25,6 +26,7 @@ fn main() {
     ownership();
     reference();
     slice_type();
+    test_structs();
 
     let mut input = String::new();
 
