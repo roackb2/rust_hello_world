@@ -42,13 +42,6 @@ struct File {
 }
 
 impl File {
-  fn empty() -> File {
-    File {
-      document_id: String::from(""),
-      content: String::from(""),
-      attachments: None
-    }
-  }
   fn add_attachment(&mut self, file_name: String) {
     if let Some(attachments) = self.attachments.as_mut() {
       attachments.push(file_name);
@@ -75,19 +68,13 @@ impl Transfer {
     }
   }
   fn action(&mut self) {
-    match self {
-      Transfer::Payment(trx) => {
-        trx.done = true;
-      }
-      _ => {}
+    if let Transfer::Payment(trx) = self {
+      trx.done = true;
     }
   }
   fn add_attachment(&mut self, file_name: String) {
-    match self {
-      Transfer::Invoice(inv) => {
-        inv.add_attachment(file_name);
-      }
-      _ => {}
+    if let Transfer::Invoice(inv) = self {
+      inv.add_attachment(file_name);
     }
   }
 }
