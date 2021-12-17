@@ -1,4 +1,6 @@
 mod modules;
+mod structures;
+
 use std::io;
 use std::cmp::Ordering;
 use rand::Rng;
@@ -16,6 +18,7 @@ use crate::modules::reference::reference;
 use crate::modules::slices::slice_type;
 use crate::modules::structs::test_structs;
 use crate::modules::enums::test_enums;
+use crate::structures::merkle_tree::test_tree;
 
 fn main() {
     play_around_primitives();
@@ -29,6 +32,7 @@ fn main() {
     slice_type();
     test_structs();
     test_enums();
+    test_tree();
 
     let mut input = String::new();
 
