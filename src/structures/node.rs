@@ -24,6 +24,10 @@ impl LeafNode {
       hash
     }
   }
+  pub fn insert(&mut self, data: Transaction) -> bool {
+    
+    false
+  }
 }
 
 #[derive(Debug)]
@@ -56,18 +60,32 @@ impl InternalNode {
       hash: get_empty_hash()
     }
   }
-  pub fn append(&mut self, node: Node) {
+  pub fn append(&mut self, node: Node) -> bool {
     if let None = self.left {
       self.left = Some(Box::new(node));
+      return true;
     } else if let None = self.right {
       self.right = Some(Box::new(node));
+      return true;
     } else {
       panic!("Node is full");
     }
   }
   pub fn is_full(&self) -> bool {
-    if let (Some(l), Some(r)) = (&self.left, &self.right) {
+    if let (Some(_), Some(_)) = (&self.left, &self.right) {
       return true
+    }
+    false
+  }
+  // TODO: update hash
+  pub fn insert(&mut self, txn: Transaction) -> bool {
+    if !self.is_full() {
+      let leaf = LeafNode::new(txn);
+      return self.append(Node::Leaf(leaf));
+    } else if let Some(bxl) = self.left.as_mut() {
+      return (*bxl).insert(txn);
+    } else if let Some(bxr) = self.right.as_mut() {
+      return (*bxr).insert(txn);
     }
     false
   }
@@ -78,6 +96,22 @@ pub enum Node {
   Leaf(LeafNode),
   Internal(InternalNode),
 }
+
+impl Node {
+  pub fn insert(&mut self, txn: Transaction) -> bool {
+    match self {
+      Node::Leaf(node) => node.insert(txn),
+      Node::Internal(node) => node.insert(txn)
+    }
+  }
+  pub fn is_full(&self) -> bool {
+    match self {
+      Node::Leaf(_) => true,
+      Node::Internal(node) => node.is_full()
+    }
+  }
+}
+
 
 impl Hash for Node {
   fn hash<H: Hasher>(&self, s: &mut H) {
