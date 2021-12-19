@@ -1,7 +1,7 @@
 use std::collections::hash_map::DefaultHasher;
 use std::hash::{ Hash, Hasher };
-use crate::structures::transaction::{ Transaction };
-use crate::structures::utils::{ get_hash, get_empty_hash };
+use crate::merkle_tree::transaction::{ Transaction };
+use crate::merkle_tree::utils::{ get_hash, get_empty_hash };
 
 #[derive(Debug)]
 pub struct LeafNode {
@@ -77,7 +77,7 @@ impl InternalNode {
     }
     false
   }
-  // TODO: update hash
+  // TODO: create internal node for new leaf & update hash
   pub fn insert(&mut self, txn: Transaction) -> bool {
     if !self.is_full() {
       let leaf = LeafNode::new(txn);

@@ -1,24 +1,24 @@
-mod modules;
-mod structures;
+mod playground;
+mod merkle_tree;
 
 use std::io;
 use std::cmp::Ordering;
 use rand::Rng;
-use crate::modules::primitives::{
+use crate::playground::primitives::{
     play_around_primitives,
     play_around_compound_types
 };
-use crate::modules::flow::{
+use crate::playground::flow::{
     test_statement,
     simple_add,
     control_flow
 };
-use crate::modules::ownership::ownership;
-use crate::modules::reference::reference;
-use crate::modules::slices::slice_type;
-use crate::modules::structs::test_structs;
-use crate::modules::enums::test_enums;
-use crate::structures::merkle_tree::test_tree;
+use crate::playground::ownership::ownership;
+use crate::playground::reference::reference;
+use crate::playground::slices::slice_type;
+use crate::playground::structs::test_structs;
+use crate::playground::enums::test_enums;
+use crate::merkle_tree::tree::test_tree;
 
 fn main() {
     play_around_primitives();
