@@ -14,7 +14,8 @@ use self::{
   slices::*,
   structs::*,
   enums::*,
-  flow::*
+  flow::*,
+  collections::*,
 };
 
 pub fn play() {
@@ -29,4 +30,5 @@ pub fn play() {
   slice_type();
   test_structs();
   test_enums();
+  test_collections();
 }

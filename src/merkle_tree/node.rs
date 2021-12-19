@@ -1,8 +1,8 @@
 use std::collections::hash_map::DefaultHasher;
 use std::hash::{ Hash, Hasher };
 use super::{
+  utils,
   transaction::Transaction,
-  utils::*
 };
 
 #[derive(Debug)]
@@ -20,7 +20,7 @@ impl Hash for LeafNode {
 
 impl LeafNode {
   pub fn new(data: Transaction) -> LeafNode {
-    let hash = get_hash(&data);
+    let hash = utils::get_hash(&data);
     LeafNode {
       data: Box::new(data),
       hash
@@ -59,7 +59,7 @@ impl InternalNode {
     InternalNode {
       left: None,
       right: None,
-      hash: get_empty_hash()
+      hash: utils::get_empty_hash()
     }
   }
   pub fn append(&mut self, node: Node) -> bool {

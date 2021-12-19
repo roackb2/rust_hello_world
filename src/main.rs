@@ -1,15 +1,18 @@
 mod playground;
 mod merkle_tree;
+mod json;
 
 use std::io;
 use std::cmp::Ordering;
 use rand::Rng;
 use crate::playground::play;
+use crate::json::test_json;
 use crate::merkle_tree::test_tree;
 
 fn main() {
-    test_tree();
     play();
+    test_tree();
+    test_json();
     let mut input = String::new();
 
     println!("Should we play the guessing game? \
