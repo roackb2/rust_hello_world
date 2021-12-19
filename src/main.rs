@@ -4,36 +4,12 @@ mod merkle_tree;
 use std::io;
 use std::cmp::Ordering;
 use rand::Rng;
-use crate::playground::primitives::{
-    play_around_primitives,
-    play_around_compound_types
-};
-use crate::playground::flow::{
-    test_statement,
-    simple_add,
-    control_flow
-};
-use crate::playground::ownership::ownership;
-use crate::playground::reference::reference;
-use crate::playground::slices::slice_type;
-use crate::playground::structs::test_structs;
-use crate::playground::enums::test_enums;
-use crate::merkle_tree::tree::test_tree;
+use crate::playground::play;
+use crate::merkle_tree::test_tree;
 
 fn main() {
-    play_around_primitives();
-    play_around_compound_types();
-    test_statement();
-    let c = simple_add(5, 8);
-    println!("The result is {}.", c);
-    control_flow();
-    ownership();
-    reference();
-    slice_type();
-    test_structs();
-    test_enums();
     test_tree();
-
+    play();
     let mut input = String::new();
 
     println!("Should we play the guessing game? \
