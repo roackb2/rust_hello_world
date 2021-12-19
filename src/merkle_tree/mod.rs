@@ -1,10 +1,12 @@
 pub mod tree;
 pub mod transaction;
-pub mod node;
-pub mod utils;
+mod node;
+mod utils;
 
-use crate::merkle_tree::transaction::Transaction;
-use crate::merkle_tree::tree::MerkleTree;
+use self::{
+  transaction::Transaction,
+  tree::MerkleTree
+};
 
 pub fn test_tree() {
   let txn = Transaction::new(

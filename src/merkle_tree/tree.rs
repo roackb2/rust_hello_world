@@ -1,8 +1,10 @@
 use std::collections::hash_map::DefaultHasher;
 use std::hash::{ Hash, Hasher };
-use crate::merkle_tree::utils::{ get_hash };
-use crate::merkle_tree::transaction::{ Transaction };
-use crate::merkle_tree::node::{ Node, InternalNode, LeafNode };
+use super::{
+  utils::*,
+  transaction::Transaction,
+  node::*
+};
 
 #[derive(Debug)]
 pub struct MerkleTree {
