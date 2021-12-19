@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+
 #[derive(Debug)]
 struct NotifyPayload {
   event_name: String,
@@ -47,12 +49,68 @@ pub fn test_collections() {
 
   let mut v = vec![
     Message::Notify(NotifyPayload {
-      event_name: String::from("connect")
+      event_name: "connect".to_string()
     }),
     Message::Stream(StreamPayload {
-      content: String::from("some media content")
+      content: "some media content".to_string()
     }),
     Message::Ack
   ];
   println!("a vector with multiple types: {:#?}", v);
+}
+
+pub fn test_strings() {
+  let s1 = String::from("abc");
+  let s2 = "def".to_string();
+  let s = s1 + &s2;
+  println!("string after add: {}", s);
+
+  let s3 = "yo";
+  let s4 = "hey";
+  let s = format!("{}-{}-{}", s, s3, s4);
+  println!("string concatenation using format: {},", s);
+
+  // Print characters in string one by one.
+  // NOTE: The 4th and 6th ones are diacritics,
+  // which might be printed correctly on console. 
+  println!("Characters of 'नमस्ते'");
+  for c in "नमस्ते".chars() {
+    println!("{}", c);
+  }
+
+  // Print raw bytes one by one in a String.
+  println!("Bytes of 'नमस्ते'");
+  for b in "नमस्ते".bytes()   {
+    println!("{}", b);
+  }
+}
+
+pub fn test_hashmap() {
+  let mut m: HashMap<String, u32> = HashMap::new();
+  m.insert("team 1".to_string(), 32);
+  m.insert("team 2".to_string(), 28);
+  println!("Scores of all teams: {:#?}", m);
+
+  let teams = vec!["team 1", "team 2", "team 3"];
+  let scores = [28, 32, 57];
+
+  let mut m: HashMap<_, _> = 
+    teams.into_iter().zip(scores.into_iter()).collect();
+  println!("Scores using zip: {:#?}", m);
+
+  // Update the score of team 2;
+  m.insert("team 2", 81);
+  println!("Scores after updating team 2: {:#?}", m);
+
+  m.entry("team 4").or_insert(11);
+  println!("Scores after entry insert: {:#?}", m);
+
+  let corpus = "Hello world beautiful world wonderful Hello !";
+  let mut tf_idf: HashMap<&str, u32> = HashMap::new();
+  for word in corpus.split_whitespace() {
+    let count = tf_idf.entry(word).or_insert(0);
+    *count += 1;
+  }
+
+  println!("tf-idf of our corpus: {:#?}", tf_idf);
 }

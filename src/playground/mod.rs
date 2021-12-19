@@ -31,4 +31,6 @@ pub fn play() {
   test_structs();
   test_enums();
   test_collections();
+  test_strings( );
+  test_hashmap();
 }

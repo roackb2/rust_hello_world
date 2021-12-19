@@ -10,23 +10,23 @@ use self::{
 
 pub fn test_tree() {
   let txn = Transaction::new(
-    String::from("alice@good.com"),
-    String::from("bob@good.com"),
+    "alice@good.com".to_string(),
+    "bob@good.com".to_string(),
     100
   );
   let mut tree = MerkleTree::new(txn);
   println!("testing merkle tree: {:#?}", tree);
   let transactions = [Transaction::new(
-    String::from("bob@good.com"),
-    String::from("john@great.com"),
+    "bob@good.com".to_string(),
+    "john@great.com".to_string(),
     20
   ), Transaction::new(
-    String::from("kate@awesome.com"),
-    String::from("john@great.com"),
+    "kate@awesome.com".to_string(),
+    "john@great.com".to_string(),
     35
   ), Transaction::new(
-    String::from("somebody@awesome.com"),
-    String::from("john@great.com"),
+    "somebody@awesome.com".to_string(),
+    "john@great.com".to_string(),
     35
   )];
   for txn in transactions {

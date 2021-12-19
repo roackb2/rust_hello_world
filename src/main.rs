@@ -10,9 +10,9 @@ use crate::json::test_json;
 use crate::merkle_tree::test_tree;
 
 fn main() {
-    play();
     test_tree();
     test_json();
+    play();
     let mut input = String::new();
 
     println!("Should we play the guessing game? \
