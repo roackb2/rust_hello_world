@@ -7,6 +7,7 @@ mod structs;
 mod enums;
 mod collections;
 mod error_handling;
+pub mod guess;
 
 use self::{
   primitives::*,

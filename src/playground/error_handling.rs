@@ -37,9 +37,9 @@ pub fn test_errors() {
     Err(err) => println!("We got some trouble: {:?}", err)
   }
 
-  // // Use a cleaner implementation in a function with error propagation
-  // match read_file_smple(&path) {
-  //   Ok(content) => println!("We're good to read the file! content is: {}", content),
-  //   Err(err) => println!("We got some trouble: {:?}", err)
-  // }
+  // Or read the file using built-in function
+  match fs::read_to_string(path) {
+    Ok(content) => println!("Reading file using read_to_string, content is: {}", content),
+    Err(err) => println!("We got some trouble: {:?}", err)
+  }
 }
