@@ -6,6 +6,7 @@ mod slices;
 mod structs;
 mod enums;
 mod collections;
+mod error_handling;
 
 use self::{
   primitives::*,
@@ -16,6 +17,7 @@ use self::{
   enums::*,
   flow::*,
   collections::*,
+  error_handling::*,
 };
 
 pub fn play() {
@@ -33,4 +35,5 @@ pub fn play() {
   test_collections();
   test_strings( );
   test_hashmap();
+  test_errors();
 }
