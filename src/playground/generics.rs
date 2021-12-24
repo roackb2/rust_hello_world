@@ -45,6 +45,33 @@ pub fn largest<T: PartialOrd + Copy>(list: &[T]) -> T {
   largest
 }
 
+pub trait EasyPrime {
+  fn is_easy_prime(&self) -> bool;
+}
+
+impl EasyPrime for i32 {
+  fn is_easy_prime(&self) -> bool {
+    for num in vec![2, 3, 5, 7, 11, 13 ,17 ,19] {
+      if *self % num == 0 {
+        return true
+      }
+    }
+    false
+  }
+}
+
+impl Point<i32> {
+  pub fn new_int(x: i32, y: i32) -> Point<i32> {
+    Point { x, y }
+  }
+}
+
+impl EasyPrime for Point<i32> {
+  fn is_easy_prime(&self) -> bool {
+    self.x.is_easy_prime() && self.y.is_easy_prime()
+  }
+}
+
 pub fn test_generics() {
   let num_list = vec![9, 7, 6, 4, 3, 1, 5];
 
@@ -71,4 +98,11 @@ pub fn test_generics() {
 
   let most_upper_right = Point::upper_right(&points);
   println!("The most upper right point in list: {:#?}", most_upper_right);
+
+  for num in vec![247, 249, 251, 257] {
+    println!("is {} easy prime: {}", num, num.is_easy_prime());
+  }
+
+  let p = Point::new_int(251, 257);
+  println!("is p a point {:#?} consists of easy prime: {}", p, p.is_easy_prime());
 }
