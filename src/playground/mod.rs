@@ -7,6 +7,7 @@ mod structs;
 mod enums;
 mod collections;
 mod error_handling;
+mod generics;
 pub mod guess;
 
 use self::{
@@ -19,6 +20,7 @@ use self::{
   flow::*,
   collections::*,
   error_handling::*,
+  generics::*,
 };
 
 pub fn play() {
@@ -37,4 +39,5 @@ pub fn play() {
   test_strings( );
   test_hashmap();
   test_errors();
+  test_generics();
 }
