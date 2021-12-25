@@ -35,6 +35,13 @@ impl<T: Copy> Node<T> {
     }
     post(self);
   }
+  pub fn search(&self, key: u32) -> Option<T> {
+    match key.cmp(&self.key) {
+      Ordering::Equal => Some(self.value),
+      Ordering::Greater => self.right.search(key),
+      Ordering::Less => self.left.search(key)
+    }
+  }
   pub fn insert(&mut self, key: u32, value: T) -> bool {
     match key.cmp(&self.key) {
       Ordering::Equal => {

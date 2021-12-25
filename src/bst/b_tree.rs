@@ -12,6 +12,7 @@ impl<T: Copy> BTree<T> {
       root: Link::new(key, value)
     }
   }
+  pub fn search(&self, key: u32) -> Option<T> { self.root.search(key) }
   pub fn insert(&mut self, key: u32, value: T) -> bool {
     self.root.insert(key, value)
   }

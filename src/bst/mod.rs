@@ -50,4 +50,7 @@ pub fn test_btree() {
   }
 
   tree.traverse(pre_cb, in_cb, post_cb);
+
+  println!("Value for key 5 in tree: {:#?}", tree.search(5));
+  println!("Value for key 10 in tree: {:#?}", tree.search(10));
 }
