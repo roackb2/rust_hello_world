@@ -5,6 +5,8 @@ use super::{
   transaction::Transaction,
 };
 
+type TraverseCb = fn(&Node) -> bool;
+
 #[derive(Debug)]
 pub struct LeafNode {
   hash: u64,
@@ -35,8 +37,8 @@ impl LeafNode {
 #[derive(Debug)]
 pub struct InternalNode {
   hash: u64,
-  left: Option<Box<Node>>,
-  right: Option<Box<Node>>,
+  left: Node,
+  right: Node,
 }
 
 impl Hash for InternalNode {
@@ -57,59 +59,70 @@ pub fn get_child_hash(left: u64, right: u64) -> u64 {
 impl InternalNode {
   pub fn new() -> InternalNode {
     InternalNode {
-      left: None,
-      right: None,
+      left: Node::None,
+      right: Node::None,
       hash: utils::get_empty_hash()
     }
   }
   pub fn append(&mut self, node: Node) -> bool {
-    if let None = self.left {
-      self.left = Some(Box::new(node));
+    if let Node::None = self.left {
+      self.left = node;
       return true;
-    } else if let None = self.right {
-      self.right = Some(Box::new(node));
+    } else if let Node::None = self.right {
+      self.right = node;
       return true;
     } else {
       panic!("Node is full");
     }
   }
   pub fn is_full(&self) -> bool {
-    if let (Some(_), Some(_)) = (&self.left, &self.right) {
-      return true
+    if let Node::None = self.left {
+      return false;
+    } 
+    if let Node::None = self.right {
+      return false;
     }
-    false
+    true
   }
-  // TODO: create internal node for new leaf & update hash
   pub fn insert(&mut self, txn: Transaction) -> bool {
-    if !self.is_full() {
-      let leaf = LeafNode::new(txn);
-      return self.append(Node::Leaf(leaf));
-    } else if let Some(bxl) = self.left.as_mut() {
-      return (*bxl).insert(txn);
-    } else if let Some(bxr) = self.right.as_mut() {
-      return (*bxr).insert(txn);
-    }
+    // TODO: implement insert
     false
   }
 }
 
 #[derive(Debug)]
 pub enum Node {
-  Leaf(LeafNode),
-  Internal(InternalNode),
+  Leaf(Box<LeafNode>),
+  Internal(Box<InternalNode>),
+  None,
 }
 
 impl Node {
   pub fn insert(&mut self, txn: Transaction) -> bool {
     match self {
       Node::Leaf(node) => node.insert(txn),
-      Node::Internal(node) => node.insert(txn)
+      Node::Internal(node) => node.insert(txn),
+      Node::None => false // TODO: create internal node
     }
   }
   pub fn is_full(&self) -> bool {
     match self {
       Node::Leaf(_) => true,
-      Node::Internal(node) => node.is_full()
+      Node::Internal(node) => node.is_full(),
+      Node::None => true
+    }
+  }
+  pub fn traverse(&self, pre_cb: TraverseCb, in_cb: TraverseCb, post_cb: TraverseCb) {
+    match self {
+      Node::Leaf(leaf) => (),
+      Node::Internal(node) => {
+        pre_cb(self);
+        Node::traverse(&node.left, pre_cb, in_cb, post_cb);
+        in_cb(self);
+        Node::traverse(&node.right, post_cb, in_cb, post_cb);
+        ()
+      },
+      Node::None => ()
     }
   }
 }
@@ -119,7 +132,8 @@ impl Hash for Node {
   fn hash<H: Hasher>(&self, s: &mut H) {
     match self {
       Node::Leaf(trx) => trx.hash(s),
-      Node::Internal(node) => node.hash(s)
+      Node::Internal(node) => node.hash(s),
+      Node::None => 0.hash(s)
     }
   }
 }

@@ -10,7 +10,7 @@ pub struct MerkleTree {
 
 impl MerkleTree {
   pub fn new(data: Transaction) -> MerkleTree {
-    let leaf = Node::Leaf(LeafNode::new(data));
+    let leaf = Node::Leaf(Box::new(LeafNode::new(data)));
     let mut node = InternalNode::new();
     node.append(leaf);
     MerkleTree {
