@@ -45,7 +45,7 @@ impl<T: Copy> Node<T> {
   pub fn insert(&mut self, key: u32, value: T) -> bool {
     match key.cmp(&self.key) {
       Ordering::Equal => {
-        self.value = value;
+        self.update(value);
         true
       },
       Ordering::Greater => {
