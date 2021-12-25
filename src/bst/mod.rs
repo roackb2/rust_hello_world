@@ -49,8 +49,10 @@ pub fn test_btree() {
     println!("Post-callback of node, key: {}, value: {}", node.key(), node.value())
   }
 
-  tree.traverse(pre_cb, in_cb, post_cb);
-
   println!("Value for key 5 in tree: {:#?}", tree.search(5));
   println!("Value for key 10 in tree: {:#?}", tree.search(10));
+
+  tree.traverse(Some(pre_cb), None, None);
+  tree.traverse(None, Some(in_cb), None);
+  tree.traverse(None, None, Some(post_cb));
 }

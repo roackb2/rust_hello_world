@@ -24,16 +24,16 @@ impl<T: Copy> Node<T> {
   pub fn update(&mut self, value: T) {
     self.value = value;
   }
-  pub fn traverse(&self, pre: TraverseCb<T>, mid: TraverseCb<T>, post: TraverseCb<T>) {
-    pre(self);
+  pub fn traverse(&self, pre: Option<TraverseCb<T>>, mid: Option<TraverseCb<T>>, post: Option<TraverseCb<T>>) {
+    if let Some(cb) = pre { cb(self) };
     if let Link::To(left) = &self.left {
       Node::traverse(&left, pre, mid, post);
     }
-    mid(self);
+    if let Some(cb) = mid { cb(self) };
     if let Link::To(right) = &self.right {
       Node::traverse(&right, pre, mid, post);
     }
-    post(self);
+    if let Some(cb) = post { cb(self) };
   }
   pub fn search(&self, key: u32) -> Option<T> {
     match key.cmp(&self.key) {

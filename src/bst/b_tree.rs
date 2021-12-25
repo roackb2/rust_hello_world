@@ -16,7 +16,7 @@ impl<T: Copy> BTree<T> {
   pub fn insert(&mut self, key: u32, value: T) -> bool {
     self.root.insert(key, value)
   }
-  pub fn traverse(&self, pre: TraverseCb<T>, mid: TraverseCb<T>, post: TraverseCb<T>) {
+  pub fn traverse(&self, pre: Option<TraverseCb<T>>, mid: Option<TraverseCb<T>>, post: Option<TraverseCb<T>>) {
     self.root.traverse(pre, mid, post);
   }
 }

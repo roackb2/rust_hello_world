@@ -23,7 +23,7 @@ impl<T: Copy> Link<T> {
       Link::None => panic!("Cannot insert a link of None")
     }
   }
-  pub fn traverse(&self, pre: TraverseCb<T>, mid: TraverseCb<T>, post: TraverseCb<T>) {
+  pub fn traverse(&self, pre: Option<TraverseCb<T>>, mid: Option<TraverseCb<T>>, post: Option<TraverseCb<T>>) {
     match self {
       Link::To(node) => node.traverse(pre, mid, post),
       Link::None => ()
