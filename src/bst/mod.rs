@@ -1,4 +1,7 @@
 pub mod b_tree;
+mod node;
+mod link;
+mod types;
 
 use self::b_tree::BTree;
 
@@ -24,7 +27,8 @@ pub fn test_btree() {
     Item::new(1, "hey"),
     Item::new(6, "Banana"),
     Item::new(9, "Peach"),
-    Item::new(8, "Purple")
+    Item::new(8, "Purple"),
+    Item::new(4, "Fruit"),
   ];
 
   for item in items {
