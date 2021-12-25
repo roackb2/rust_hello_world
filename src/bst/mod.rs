@@ -1,9 +1,10 @@
 pub mod b_tree;
+pub mod types;
 mod node;
 mod link;
-mod types;
 
 use self::b_tree::BTree;
+use self::node::Node;
 
 struct Item<'a> {
   key: u32,
@@ -35,4 +36,18 @@ pub fn test_btree() {
     tree.insert(item.key, item.value);
   }
   println!("Tree after insertion: {:#?}", tree);
+
+  fn pre_cb(node: &Node<&str>) {
+    println!("Pre-callback of node, key: {}, value: {}", node.key(), node.value())
+  }
+
+  fn in_cb(node: &Node<&str>) {
+    println!("In-callback of node, key: {}, value: {}", node.key(), node.value())
+  }
+
+  fn post_cb(node: &Node<&str>) {
+    println!("Post-callback of node, key: {}, value: {}", node.key(), node.value())
+  }
+
+  tree.traverse(pre_cb, in_cb, post_cb);
 }

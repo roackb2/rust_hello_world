@@ -19,6 +19,8 @@ impl<T: Copy> Node<T> {
       right: Link::None
     }
   }
+  pub fn key(&self) -> u32 { self.key }
+  pub fn value(&self) -> T { self.value }
   pub fn update(&mut self, value: T) {
     self.value = value;
   }

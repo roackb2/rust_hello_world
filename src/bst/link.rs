@@ -1,4 +1,5 @@
 use super::node::Node;
+use super::types::TraverseCb;
 
 #[derive(Debug)]
 pub enum Link<T: Copy> {
@@ -14,6 +15,12 @@ impl<T: Copy> Link<T> {
     match self {
       Link::To(node) => node.insert(key, value),
       Link::None => panic!("Cannot insert a link of None")
+    }
+  }
+  pub fn traverse(&self, pre: TraverseCb<T>, mid: TraverseCb<T>, post: TraverseCb<T>) {
+    match self {
+      Link::To(node) => node.traverse(pre, mid, post),
+      Link::None => ()
     }
   }
 }
