@@ -1,13 +1,13 @@
 use super::node::Node;
-use super::types::{ TraverseCb, CollectCb };
+use super::types::{ Value, TraverseCb, CollectCb };
 
 #[derive(Debug)]
-pub enum Link<T: Copy> {
+pub enum Link<T: Value> {
   None,
   To(Box<Node<T>>)
 }
 
-impl<T: Copy> Link<T> {
+impl<T: Value> Link<T> {
   pub fn new(key: u32, value: T) -> Link<T> {
     Link::To(Box::new(Node::new(key, value)))
   }

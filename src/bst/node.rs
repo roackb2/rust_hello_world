@@ -1,16 +1,16 @@
 use std::cmp::Ordering;
 use super::link::Link;
-use super::types::{ TraverseCb, CollectCb };
+use super::types::{ Value, TraverseCb, CollectCb };
 
 #[derive(Debug)]
-pub struct Node<T: Copy> {
+pub struct Node<T: Value> {
   key: u32,
   value: T,
   left: Link<T>,
   right: Link<T>
 }
 
-impl<T: Copy> Node<T> {
+impl<T: Value> Node<T> {
   pub fn new(key: u32, value: T) -> Node<T> {
     Node {
       key,
@@ -20,7 +20,7 @@ impl<T: Copy> Node<T> {
     }
   }
   pub fn key(&self) -> u32 { self.key }
-  pub fn value(&self) -> T { self.value }
+  pub fn value(&self) -> T { self.value.clone() }
   pub fn update(&mut self, value: T) {
     self.value = value;
   }
@@ -60,7 +60,7 @@ impl<T: Copy> Node<T> {
   }
   pub fn search(&self, key: u32) -> Option<T> {
     match key.cmp(&self.key) {
-      Ordering::Equal => Some(self.value),
+      Ordering::Equal => Some(self.value.clone()),
       Ordering::Greater => self.right.search(key),
       Ordering::Less => self.left.search(key)
     }

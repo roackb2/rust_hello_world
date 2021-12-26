@@ -3,11 +3,11 @@ use super::node::Node;
 use super::types::{ Value, TraverseCb, CollectCb };
 
 #[derive(Debug)]
-pub struct BTree<T: Copy> {
+pub struct BTree<T: Value> {
   root: Link<T>
 }
 
-impl<T: Copy> BTree<T> {
+impl<T: Value> BTree<T> {
   pub fn new(key: u32, value: T) -> BTree<T> {
     BTree {
       root: Link::new(key, value)
