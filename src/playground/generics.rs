@@ -13,14 +13,28 @@ impl<T: PartialOrd + Copy> Point<T> {
     Point { x: self.x, y: self.y }
   }
   pub fn upper_right(list: &[Point<T>]) -> Point<T> {
-    let mut outest = list[0].clone();
+    let mut candidate = list[0].clone();
+
+    let mut most_right = candidate.x;
+    let mut most_up = candidate.y;
 
     for item in list {
-      if item.x > outest.x && item.y > outest.y {
-        outest = item.clone();
+      if item.x > most_right { most_right = item.x }
+      if item.y > most_up { most_up = item.y }
+      if item.x > candidate.x && item.y > candidate.y {
+        candidate = item.clone();
       }
     }
-    outest
+    if !(candidate.x >= most_right && candidate.y >= most_up) {
+      panic!("not found");
+    }
+    candidate
+  }
+}
+
+impl<T: PartialEq> PartialEq for Point<T> {
+  fn eq(&self, other: &Point<T>) -> bool {
+    self.x == other.x && self.y == other.y
   }
 }
 
@@ -105,4 +119,38 @@ pub fn test_generics() {
 
   let p = Point::new_int(251, 257);
   println!("is p a point {:#?} consists of easy prime: {}", p, p.is_easy_prime());
+}
+
+#[cfg(test)]
+mod tests {
+  use super::*;
+  #[test]
+  fn test_largest() {
+    let list = vec![3, 5, 8, 2, 1 ,7];
+    let res = largest(&list);
+    assert_eq!(res, 8);
+  }
+
+  #[test]
+  #[should_panic]
+  fn upper_right_not_found() {
+    let points = vec![
+      Point::new_int(3, 8),
+      Point::new_int(7, 4),
+      Point::new_int(6, 5)
+    ];
+    Point::upper_right(&points);
+  }
+
+  #[test]
+  fn upper_right() {
+    let points = vec![
+      Point::new_int(3, 8),
+      Point::new_int(7, 4),
+      Point::new_int(6, 5),
+      Point::new_int(12, 9),
+    ];
+    let ans = Point::upper_right(&points);
+    assert!(ans == Point { x: 12, y: 9 });
+  }
 }

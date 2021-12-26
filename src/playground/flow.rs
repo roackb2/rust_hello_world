@@ -63,3 +63,18 @@ pub fn control_flow() {
   }
   println!("Liftoff!!");
 }
+
+#[cfg(test)]
+mod tests {
+  use super::*;
+
+  #[test]
+  fn test_add() {
+    assert_eq!(simple_add(3, 5), 8);
+  }
+
+  #[test] #[ignore]
+  fn should_fail() {
+      panic!("This should fail!");
+  }
+}
