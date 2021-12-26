@@ -128,7 +128,10 @@ mod tests {
   fn test_largest() {
     let list = vec![3, 5, 8, 2, 1 ,7];
     let res = largest(&list);
-    assert_eq!(res, 8);
+    let correct = 8;
+    assert_eq!(res, correct,
+      "The largest number given vector {:?} is not {}, value is {}", list, correct, res
+    );
   }
 
   #[test]
@@ -151,6 +154,9 @@ mod tests {
       Point::new_int(12, 9),
     ];
     let ans = Point::upper_right(&points);
-    assert!(ans == Point { x: 12, y: 9 });
+    let correct = Point{ x: 12, y: 9 };
+    assert_eq!(ans, correct,
+      "The most upper right point should be {:?}, but got {:?}", correct, ans
+    );
   }
 }
