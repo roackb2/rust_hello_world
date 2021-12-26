@@ -135,7 +135,7 @@ mod tests {
   }
 
   #[test]
-  #[should_panic]
+  #[should_panic(expected="not found")]
   fn upper_right_not_found() {
     let points = vec![
       Point::new_int(3, 8),

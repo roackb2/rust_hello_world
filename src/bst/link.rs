@@ -1,5 +1,5 @@
 use super::node::Node;
-use super::types::TraverseCb;
+use super::types::{ TraverseCb, CollectCb };
 
 #[derive(Debug)]
 pub enum Link<T: Copy> {
@@ -26,6 +26,18 @@ impl<T: Copy> Link<T> {
   pub fn traverse(&self, pre: Option<TraverseCb<T>>, mid: Option<TraverseCb<T>>, post: Option<TraverseCb<T>>) {
     match self {
       Link::To(node) => node.traverse(pre, mid, post),
+      Link::None => ()
+    }
+  }
+  pub fn collect(
+    &self,
+    state: &mut Vec<T>,
+    pre: Option<CollectCb<T>>,
+    mid: Option<CollectCb<T>>,
+    post: Option<CollectCb<T>>,
+  ) {
+    match self {
+      Link::To(node) => node.collect(state, pre, mid, post),
       Link::None => ()
     }
   }

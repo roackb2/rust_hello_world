@@ -1,7 +1,7 @@
 pub mod b_tree;
 pub mod types;
-mod node;
-mod link;
+pub mod node;
+pub mod link;
 
 use self::b_tree::BTree;
 use self::node::Node;

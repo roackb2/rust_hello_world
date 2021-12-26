@@ -1,6 +1,6 @@
 use std::cmp::Ordering;
 use super::link::Link;
-use super::types::TraverseCb;
+use super::types::{ TraverseCb, CollectCb };
 
 #[derive(Debug)]
 pub struct Node<T: Copy> {
@@ -34,6 +34,29 @@ impl<T: Copy> Node<T> {
       Node::traverse(&right, pre, mid, post);
     }
     if let Some(cb) = post { cb(self) };
+  }
+  pub fn collect(
+    &self,
+    state: &mut Vec<T>,
+    pre: Option<CollectCb<T>>,
+    mid: Option<CollectCb<T>>,
+    post: Option<CollectCb<T>>,
+  ) {
+    if let Some(cb) = pre {
+      cb(self, state);
+    }
+    if let Link::To(left) = &self.left {
+      left.collect(state, pre, mid, post);
+    }
+    if let Some(cb) = mid {
+      cb(self, state);
+    }
+    if let Link::To(right) = &self.right {
+      right.collect(state, pre, mid, post);
+    }
+    if let Some(cb) = post {
+      cb(self, state);
+    }
   }
   pub fn search(&self, key: u32) -> Option<T> {
     match key.cmp(&self.key) {
