@@ -11,3 +11,7 @@ num = "0.4"
 
 [profile.release]
 paic = "abort"
+
+[[bin]]
+name = "todo"
+path = "src/todo/main.rs"
